@@ -3,7 +3,7 @@ package util
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
-	"go_blog/pkg/setting"
+	"rpc_blog_client/conf"
 )
 
 func GetPage(c *gin.Context) (int, int) {
@@ -11,7 +11,7 @@ func GetPage(c *gin.Context) (int, int) {
 	page, _ := com.StrTo(c.Query("page")).Int()
 	size, _ := com.StrTo(c.Query("size")).Int()
 	if size == 0 {
-		size = setting.Config.App.PageSize
+		size = conf.Config.App.PageSize
 	}
 	if page > 0 {
 		result = (page - 1) * size

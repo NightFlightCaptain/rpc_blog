@@ -20,10 +20,10 @@ func InitRouter() *gin.Engine {
 	tags := r.Group("/tag")
 	{
 		tags.GET("/:id", api.GetTag)
-		//tags.GET("", api.GetTags)
-		//tags.POST("", api.AddTag)
-		//tags.PUT("", api.EditTag)
-		//tags.DELETE("/:id", api.DeleteTag)
+		tags.GET("", api.GetTags)
+		tags.POST("", api.AddTag)
+		tags.PUT("", api.EditTag)
+		tags.DELETE("/:id", api.DeleteTag)
 	}
 
 
