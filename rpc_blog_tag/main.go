@@ -10,10 +10,10 @@ import (
 	"log"
 	"net"
 	"os"
-	"rpc_blog/conf"
-	"rpc_blog/models"
-	"rpc_blog/rpc"
-	out "rpc_blog/rpc/proto"
+	"rpc_blog_tag/conf"
+	"rpc_blog_tag/models"
+	"rpc_blog_tag/rpc"
+	out "rpc_blog_tag/rpc/proto"
 )
 
 func ZapLogger() *zap.Logger {

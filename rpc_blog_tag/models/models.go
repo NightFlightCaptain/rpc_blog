@@ -5,7 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"log"
-	"rpc_blog/conf"
+	"rpc_blog_tag/conf"
 	"time"
 )
 

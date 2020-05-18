@@ -1,4 +1,4 @@
-module rpc_blog
+module rpc_blog_tag
 
 go 1.14
 

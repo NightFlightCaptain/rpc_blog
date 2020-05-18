@@ -1,19 +1,11 @@
 package service
 
 import (
-	"rpc_blog/models"
-	"rpc_blog/pkg/e"
+	"rpc_blog_tag/models"
+	"rpc_blog_tag/pkg/e"
 )
 
 type TagService struct {
-}
-
-type Tag struct {
-	Id         int
-	Name       string
-	CreatedBy  string
-	ModifiedBy string
-	State      int
 }
 
 func (tagService *TagService) ExistTagById(id int) (exists bool, code int) {
@@ -62,6 +54,7 @@ func (tagService *TagService) GetTags(offset, limit int, maps map[string]interfa
 		return nil, e.ERROR
 	}
 
+	//total is the num regardless of limit and offset
 	total, err := models.GetTagTotal(maps)
 	if err != nil {
 		return nil, e.ERROR
@@ -74,7 +67,7 @@ func (tagService *TagService) GetTags(offset, limit int, maps map[string]interfa
 	return data, e.SUCCESS
 }
 
-func (tagService *TagService) AddTag(tag Tag) (code int) {
+func (tagService *TagService) AddTag(tag models.Tag) (code int) {
 	_, code = tagService.ExistTagByName(tag.Name)
 	if code != e.SUCCESS {
 		return code
@@ -92,8 +85,8 @@ func (tagService *TagService) AddTag(tag Tag) (code int) {
 	return e.SUCCESS
 }
 
-func (tagService *TagService) EditTag(tag Tag) (code int) {
-	_, code = tagService.ExistTagById(tag.Id)
+func (tagService *TagService) EditTag(tag models.Tag) (code int) {
+	_, code = tagService.ExistTagById(tag.Model.ID)
 	if code != e.SUCCESS {
 		return code
 	}
@@ -111,7 +104,7 @@ func (tagService *TagService) EditTag(tag Tag) (code int) {
 	if tag.State != 0 {
 		data["state"] = tag.State
 	}
-	_, err := models.EditTag(tag.Id, data)
+	_, err := models.EditTag(tag.Model.ID, data)
 	if err != nil {
 		return e.ERROR
 	}
