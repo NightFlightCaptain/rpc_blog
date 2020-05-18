@@ -26,6 +26,10 @@ func InitRouter() *gin.Engine {
 		tags.DELETE("/:id", api.DeleteTag)
 	}
 
+	artilces := r.Group("/article")
+	{
+		artilces.GET("/:id", api.GetArticle)
+	}
 
 	return r
 }

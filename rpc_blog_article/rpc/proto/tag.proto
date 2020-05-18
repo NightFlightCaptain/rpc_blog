@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package out;
+
+message Tag {
+    int32 id = 1;
+    string name = 2;
+    string createdBy = 3;
+    string modifiedBy = 4;
+    int32 state = 5;
+}
+
+message GetTagsRequest {
+    int32 offset = 1;
+    int32 limit = 2;
+    bytes maps = 3;
+}
+
+message ExistResponse {
+    bool exist = 1;
+    int32 code = 2;
+}
+
+message GetTagResponse {
+    Tag tag = 1;
+    int32 code = 2;
+}
+
+message GetTagsResponse {
+    message Data {
+        repeated Tag tags = 1;
+        int32 total = 2;
+    }
+    Data data = 1;
+    int32 code = 2;
+}
+
+message Id {
+    int32 id = 1;
+}
+
+message Name {
+    string name = 1;
+}
+message TagRequest {
+    Tag tag = 1;
+}
+message Code {
+    int32 code = 1;
+}
+
+service TagService {
+    rpc ExistTagById (Id) returns (ExistResponse) {
+    }
+    rpc ExistTagByName (Name) returns (ExistResponse) {
+    }
+
+    rpc GetTag (Id) returns (GetTagResponse) {
+    }
+    rpc GetTags (GetTagsRequest) returns (GetTagsResponse) {
+    }
+
+    rpc AddTag (Tag) returns (Code) {
+    }
+    rpc EditTag (Tag) returns (Code) {
+    }
+    rpc DeleteTag (Id) returns (Code) {
+    }
+
+}
