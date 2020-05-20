@@ -8,12 +8,13 @@ import (
 	"os"
 	"os/signal"
 	"rpc_blog_client/conf"
+	"rpc_blog_client/consul"
 	"rpc_blog_client/routers"
 	"rpc_blog_client/rpc"
 	"time"
 )
 
-func initGin()  {
+func initGin() {
 	router := routers.InitRouter()
 	s := &http.Server{
 		Addr:           fmt.Sprintf(":%d", conf.Config.Server.HTTPPort),
@@ -50,6 +51,9 @@ func initGin()  {
 func main() {
 
 	conf.SetUp()
-	rpc.SetUp()
+	consul.ConsulSetUp()
+	if err := rpc.SetUp(); err != nil {
+		return
+	}
 	initGin()
 }

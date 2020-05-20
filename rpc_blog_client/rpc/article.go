@@ -10,8 +10,9 @@ import (
 
 var ArticleClient out.ArticleServiceClient
 
-func setUpArticle() {
-	conn, err := grpc.Dial("localhost:8082", grpc.WithInsecure())
+func setUpArticle(target string) {
+
+	conn, err := grpc.Dial(target, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

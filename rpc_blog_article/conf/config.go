@@ -24,6 +24,7 @@ type appConfig struct {
 type serverConfig struct {
 	RunMode      string        `yaml:"run_mode"`
 	HTTPPort     int           `yaml:"HTTP_port"`
+	Name         string        `yaml:"name"`
 	ReadTimeout  time.Duration `yaml:"read_timeout"`
 	WriteTimeout time.Duration `yaml:"write_timeout"`
 }
@@ -36,7 +37,6 @@ type databaseConfig struct {
 	Name        string `yaml:"name"`
 	TablePrefix string `yaml:"table_prefix"`
 }
-
 
 type configYaml struct {
 	App      appConfig      `yaml:"app"`

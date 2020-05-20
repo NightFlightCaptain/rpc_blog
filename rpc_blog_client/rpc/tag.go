@@ -12,8 +12,8 @@ import (
 
 var TagClient out.TagServiceClient
 
-func setUpTag() {
-	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure())
+func setUpTag(target string) {
+	conn, err := grpc.Dial(target, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

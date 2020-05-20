@@ -11,9 +11,12 @@ import (
 	"net"
 	"os"
 	"rpc_blog_article/conf"
+	"rpc_blog_article/consul"
 	"rpc_blog_article/models"
 	"rpc_blog_article/rpc"
 	"rpc_blog_article/rpc/out"
+	"strconv"
+	"time"
 )
 
 func ZapLogger() *zap.Logger {
@@ -27,7 +30,19 @@ func ZapLogger() *zap.Logger {
 	return logger
 }
 
+func consulRegister() {
+	register := consul.NewConsulRegister("localhost:8500", 15)
+	register.Register(consul.RegisterInfo{
+		Host:           "localhost",
+		Port:           conf.Config.Server.HTTPPort,
+		ServiceName:    conf.Config.Server.Name,
+		UpdateInterval: time.Second,
+	})
+}
+
 func RegisterMethod() {
+	consulRegister()
+
 	opts := []grpc.ServerOption{
 		grpc_middleware.WithUnaryServerChain(
 			grpc_recovery.UnaryServerInterceptor(),
@@ -38,7 +53,7 @@ func RegisterMethod() {
 	s := grpc.NewServer(opts...)
 	out.RegisterArticleServiceServer(s, new(rpc.ArticleServer))
 
-	lis, err := net.Listen("tcp", ":8082")
+	lis, err := net.Listen("tcp", "localhost:"+strconv.Itoa(conf.Config.Server.HTTPPort))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,5 +64,6 @@ func main() {
 	conf.SetUp()
 	models.SetUp()
 	rpc.SetUp()
+
 	RegisterMethod()
 }
