@@ -26,7 +26,7 @@ func initGin() {
 
 	go func() {
 		//ListenAndServer总是返回一个错误
-		if err := s.ListenAndServe(); err != nil {
+		if err := s.ListenAndServe(); err != nil && err!=http.ErrServerClosed{
 			log.Printf("Listen: %s\n", err)
 		}
 	}()

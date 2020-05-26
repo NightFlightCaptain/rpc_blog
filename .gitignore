@@ -1,2 +1,7 @@
 rpc_blog_client/.idea/
 rpc_blog_tag/.idea/
+rpc_blog_article/.idea/
+.idea
+.gitignore
+
+*.log

@@ -59,6 +59,7 @@ func (c *Register) Register(info RegisterInfo) error {
 		TTL:    fmt.Sprintf("%ds", c.Ttl),
 		Status: consulapi.HealthPassing,
 	}
+
 	err = client.Agent().CheckRegister(
 		&consulapi.AgentCheckRegistration{
 			ID:                serviceId,
@@ -85,6 +86,7 @@ func (c *Register) Register(info RegisterInfo) error {
 
 	go func() {
 		ticker := time.NewTicker(info.UpdateInterval)
+		defer ticker.Stop()
 		for {
 			<-ticker.C
 			err = client.Agent().UpdateTTL(serviceId, "", check.Status)

@@ -28,7 +28,7 @@ func ConsulSetUp() []string {
 	}
 	lastIndex = metainfo.LastIndex
 
-	adds := make([]string,0)
+	adds := make([]string, 0)
 	for _, service := range services {
 		fmt.Println("service.Service.Address:", service.Service.Address, "service.Service.Port:", service.Service.Port)
 		adds = append(adds, net.JoinHostPort(service.Service.Address, strconv.Itoa(service.Service.Port)))
